@@ -13,20 +13,26 @@
   </style>
 </head>
 <body>
+    <div class="container-header">
+        <h1 class="heading" id="dynamic-heading"></h1>
+      </div>
+      <div class="back-button">
+        <a href="index.html">&#8592; Back</a>
+      </div>
 <div class="center">
   <div class="image-container">
     <a href="#" onclick="showPopup('play1_level.html')">
-      <img src="images/easy.jpg" alt="Pineapple" width="400" height="400" class="float-animation">
+      <img src="images/easy.jpg" alt="First Image" class="custom-image float-animation">
     </a>
   </div>
   <div class="image-container">
     <a href="#" onclick="showPopup('play2_level.html')">
-      <img src="images/medium.jpeg" alt="Second Image" width="400" height="400" class="float-animation">
+      <img src="images/medium.jpeg" alt="Second Image"class="custom-image float-animation">
     </a>
   </div>
   <div class="image-container">
     <a href="#" onclick="showPopup('play3_level.html')">
-      <img src="images/hard.jpg" alt="Third Image" width="400" height="400" class="float-animation">
+      <img src="images/hard.jpg" alt="Third Image" class="custom-image float-animation">
     </a>
   </div>
 </div>
@@ -41,24 +47,18 @@
 
 <script src="script.js"></script>
 <script>
-  let gameToPlay = "";
-
-  function showPopup(game) {
-    gameToPlay = game;
-    document.getElementById("popup").style.display = "flex"; 
-  }
-
-  function hidePopup() {
-    gameToPlay = ""; 
-    document.getElementById("popup").style.display = "none";
-  }
-
-  function playGame(userChoice) {
-    if (userChoice === 'Yes' && gameToPlay !== "") {
-      window.location.href = gameToPlay;
+    const textToWrite = "Let's Play Spot The difference";
+    const writingTextElement = document.getElementById("dynamic-heading");
+    let charIndex = 0;
+  
+    function writeText() {
+      if (charIndex < textToWrite.length) {
+        writingTextElement.textContent += textToWrite[charIndex];
+        charIndex++;
+        setTimeout(writeText, 50);
+      }
     }
-    hidePopup();
-  }
-</script>
+    writeText();
+  </script>
 </body>
 </html>
