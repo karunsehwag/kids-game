@@ -1,36 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="style.css">
-<style>
-body {
-    background-image: url('images/background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;  
-    background-size: cover;
-  }  
-
-</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body {
+      background-image: url('images/background.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    
+   
+  </style>
 </head>
 <body>
 <div class="center">
   <div class="image-container">
-    <a href="Match_pairs_level.html">
+    <a href="#" onclick="showPopup('play1_level.html')">
       <img src="images/easy.jpg" alt="Pineapple" width="400" height="400" class="float-animation">
     </a>
   </div>
   <div class="image-container">
-    <a href="spot_the_differnce_level.html">
+    <a href="#" onclick="showPopup('play2_level.html')">
       <img src="images/medium.jpeg" alt="Second Image" width="400" height="400" class="float-animation">
     </a>
   </div>
   <div class="image-container">
-    <a href="what_goes_together_level.html">
+    <a href="#" onclick="showPopup('play3_level.html')">
       <img src="images/hard.jpg" alt="Third Image" width="400" height="400" class="float-animation">
     </a>
   </div>
 </div>
+
+<div id="popup" class="popup-overlay">
+  <div class="popup-content">
+    <p>Are you ready to play?</p>
+    <button onclick="playGame('Yes')">Yes</button>
+    <button class="no" onclick="playGame('No')">No</button>
+  </div>
+</div>
+
 <script src="script.js"></script>
+<script>
+  let gameToPlay = "";
+
+  function showPopup(game) {
+    gameToPlay = game;
+    document.getElementById("popup").style.display = "flex";
+  }
+
+  function hidePopup() {
+    gameToPlay = ""; 
+    document.getElementById("popup").style.display = "none";
+  }
+
+  function playGame(userChoice) {
+    if (userChoice === 'Yes' && gameToPlay !== "") {
+      window.location.href = gameToPlay;
+    }
+    hidePopup();
+  }
+</script>
 </body>
 </html>
