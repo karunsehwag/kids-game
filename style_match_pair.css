@@ -1,0 +1,114 @@
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background-color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+.game-container {
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 20px;
+  background: linear-gradient(180deg, #fff, #e0e0e0);
+  border: 2px solid #3a3a3a;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-container h1 {
+  color: #2980b9;
+  font-size: 36px;
+  margin: 20px 0;
+  text-transform: uppercase;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.game-info span {
+  font-size: 20px;
+  color: #555;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.card {
+  width: 150px;
+  height: 200px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f5f5f5, #e0e0e0);
+  margin: auto;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-container .card.flipped {
+  cursor: default;
+}
+
+.card-container .card .card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.3s;
+}
+
+.card-container .card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-container .card .card-front,
+.card-container .card .card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-container .card .card-front {
+  background: linear-gradient(180deg, #ffdd67, #ffbb00);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container .card .card-front h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.card-container .card .card-back {
+background-color: #2980b9;
+color: white;
+border-radius: 10px;
+background-size: cover; /* Use 'cover' to make the image cover the card */
+background-size: 100% 100%;
+transform: rotateY(180deg);
+display: flex;
+align-items: center;
+justify-content: center;
+}

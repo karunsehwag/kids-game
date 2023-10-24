@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style_match_pair.css">
+  <style>
+  
+
+    .game-container {
+     max-width: 800px; }
+
+    .card-container {
+     grid-template-columns: repeat(3, 1fr);
+      }
+    .card {
+      width: 200px;
+      height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Animal Matching Game</h1>
+    <div class="game-info">
+      <span id="time">Time: 0:00</span>
+      <span id="score">Score: 0/3</span>
+    </div>
+
+    <div class="card-container">
+    
+    
+    </div>
+  </div>
+
+  <script>
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let score = 0;
+
+ 
+    let startTime = 0;
+    let timerInterval;
+
+
+    const imageUrls = [
+      'images/match_pair_background.jpg',
+      'images/what_goes_together_background.png',
+      'images/spot_the_difference_background.jpg',
+      'images/download (3).jpeg',
+      'images/hard.jpg',
+      'images/spot_the_difference_background.jpg',
+      'images/medium.jpeg',
+      'images/easy.jpg'
+    ];
+
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+  
+    function createImagePairs(imageUrls) {
+      const pairs = [];
+      const selectedIndexes = [];
+      while (pairs.length < 3) {
+        const randomIndex = Math.floor(Math.random() * imageUrls.length);
+        if (!selectedIndexes.includes(randomIndex)) {
+          selectedIndexes.push(randomIndex);
+          pairs.push(imageUrls[randomIndex]);
+        }
+      }
+      return [...pairs, ...pairs];
+    }
+    function assignImagesToCards() {
+      const cardContainer = document.querySelector('.card-container');
+      const imagePairs = createImagePairs(imageUrls);
+      shuffleArray(imagePairs);
+
+      imagePairs.forEach((imageUrl, index) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.onclick = () => flipCard(card);
+
+        const cardInner = document.createElement('div');
+        cardInner.classList.add('card-inner');
+
+        const cardFront = document.createElement('div');
+        cardFront.classList.add('card-front');
+        cardFront.textContent = `Card ${index + 1}`;
+
+        const cardBack = document.createElement('div');
+        cardBack.classList.add('card-back');
+        cardBack.style.backgroundImage = `url(${imageUrl})`;
+
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        card.appendChild(cardInner);
+        cardContainer.appendChild(card);
+      });
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+      const currentTime = Date.now();
+      const elapsedTime = new Date(currentTime - startTime);
+      const minutes = elapsedTime.getUTCMinutes();
+      const seconds = elapsedTime.getUTCSeconds();
+      document.getElementById('time').textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
+    function flipCard(card) {
+      if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
+        card.classList.add('flipped');
+        flippedCards.push(card);
+        if (flippedCards.length === 2) {
+          setTimeout(checkForMatch, 1000); 
+        }
+      }
+    }
+
+    function checkForMatch() {
+      const [card1, card2] = flippedCards;
+      const image1 = card1.querySelector('.card-back').style.backgroundImage;
+      const image2 = card2.querySelector('.card-back').style.backgroundImage;
+
+      if (image1 === image2) {
+    
+        card1.style.display = 'none';
+        card2.style.display = 'none';
+        flippedCards = [];
+        matchedPairs++;
+        score++;
+        document.getElementById('score').textContent = `Score: ${score}/3`;
+        if (matchedPairs === 3) {
+        
+          stopTimer();
+          alert('Congratulations! You won the game.');
+         
+        }
+      } else {
+       
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
+        flippedCards = [];
+      }
+    }
+    assignImagesToCards(); 
+    startTimer();
+  </script>
+</body>
+</html>
