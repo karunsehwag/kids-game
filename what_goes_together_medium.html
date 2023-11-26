@@ -2,6 +2,7 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="style_match_pair.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <style>
    
 
@@ -10,10 +11,71 @@
       grid-template-columns: repeat(5, 1fr);
      
     }
+    .modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+/* CSS for the modal content */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f1f1f1; /* Light gray background */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+}
+
+/* CSS for the close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px; /* Larger close button */
+  cursor: pointer;
+  color: #888; /* Gray color */
+}
+
+.close-button:hover {
+  color: #000; /* Darken on hover */
+}
+
+/* CSS for the play again button */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px; /* Larger padding */
+  border: none;
+  border-radius: 10px; /* Rounded corners */
+  margin-top: 20px; /* More space between button and content */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
 
   </style>
 </head>
 <body>
+  <audio id="background-music" autoplay loop>
+    <source src="sounds_effect/6-Happy-Commercial-Piano(chosic.com).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <button id="toggle-music-button" class="sound-control-button">
+    <i class="fas fa-volume-up"></i>
+  </button>
   <div class="game-container">
     <h1>What goes together</h1>
     <div class="game-info">
@@ -26,6 +88,20 @@
   </div>
 
   <script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const backgroundMusic = document.getElementById('background-music');
+      const toggleMusicButton = document.getElementById('toggle-music-button');
+
+      toggleMusicButton.addEventListener('click', function() {
+        if (backgroundMusic.paused) {
+          backgroundMusic.play();
+          toggleMusicButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+          backgroundMusic.pause();
+          toggleMusicButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+      });
+    });
     let flippedCards = [];
     let matchedPairs = 0;
     let score = 0;
@@ -116,9 +192,9 @@
 
     function updateTimer() {
       const currentTime = Date.now();
-      const elapsedTime = new Date(currentTime - startTime);
-      const minutes = elapsedTime.getUTCMinutes();
-      const seconds = elapsedTime.getUTCSeconds();
+      elapsedTimeInSeconds = Math.floor((currentTime - startTime) / 1000);
+      const minutes = Math.floor(elapsedTimeInSeconds / 60);
+      const seconds = elapsedTimeInSeconds % 60;
       document.getElementById('time').textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
     }
 
@@ -154,7 +230,7 @@
 
         if (matchedPairs === 10) {
           stopTimer();
-          alert('Congratulations! You won the game.');
+          showpopup(5, elapsedTimeInSeconds);
         }
       } else {
         card1.card.classList.remove('flipped');
@@ -162,6 +238,71 @@
         flippedCards = [];
       }
     }
+           // Define the showpopup function
+function showpopup(finalScore, showTime) {
+  // Create a modal container
+  const modalContainer = document.createElement('div');
+  modalContainer.className = 'modal';
+
+  // Create the modal content
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+
+  // Create a close button
+  const closeButton = document.createElement('span');
+  closeButton.className = 'close-button';
+  closeButton.innerHTML = '&times;';
+  closeButton.onclick = closePopup;
+
+  // Create the content for the modal
+  const modalTitle = document.createElement('h2');
+  modalTitle.textContent = 'Game Over';
+
+  const modalText = document.createElement('p');
+  modalText.textContent = 'Congratulations! You won the game.';
+
+  const scoreText = document.createElement('p');
+  scoreText.innerHTML = 'Your final score is: <span id="final-score">' + finalScore + '</span>';
+
+  const timeText = document.createElement('p');
+  timeText.innerHTML = 'Time taken: ' + showTime + ' seconds';
+
+  const playAgainButton = document.createElement('button');
+  playAgainButton.textContent = 'Play Again';
+  playAgainButton.onclick = playAgain;
+
+  // Append the elements to the modal content
+  modalContent.appendChild(closeButton);
+  modalContent.appendChild(modalTitle);
+  modalContent.appendChild(modalText);
+  modalContent.appendChild(scoreText);
+  modalContent.appendChild(timeText);
+  modalContent.appendChild(playAgainButton);
+
+  // Append the modal content to the modal container
+  modalContainer.appendChild(modalContent);
+
+  // Append the modal container to the body
+  document.body.appendChild(modalContainer);
+
+
+  modalContainer.style.display = 'block';
+}
+
+// Define the closePopup function to close the modal
+function closePopup() {
+  const modalContainer = document.querySelector('.modal');
+  modalContainer.style.display = 'none';
+}
+
+function playAgain() 
+{
+ 
+  closePopup();
+  
+ 
+  window.location.reload();
+}
 
     assignImagesToCards();
     startTimer();
