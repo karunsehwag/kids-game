@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
     body {
@@ -34,18 +35,19 @@
   }
 
   .back-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  .back-button a {
-    text-decoration: none;
-    padding: 5px 10px;
-    background-color: #388f99;
-    color: #fff;
-    border-radius: 5px;
-  }
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .back-button a {
+      text-decoration: none;
+      padding: 8px 12px; /* Adjust the padding as needed */
+      background-color: #388f99;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 14px; /* Adjust the font size as needed */
+    }
   
   .center {
     display: flex;
@@ -146,15 +148,32 @@
       animation: shake 0.5s;
       animation-iteration-count: infinite;
     }
+    @media screen and (max-width: 400px) {
+      .back-button a {
+        padding: 6px 10px;/* Adjust the padding for smaller screens */
+        font-size: 3vw; /* Adjust the font size for smaller screens */
+      }
+      .heading {
+font-size: 7vw; 
+
+}
+.custom-image {
+      width: 30vw;
+      height: 40vw;
+    }
+    }
+
   </style>
 </head>
 <body>
+ 
     <div class="container">
   <div class="container-header">
     <h1 class="heading" id="dynamic-heading"></h1>
   </div>
-  <div class="back-button">
-    <a href="thank_you.html">&#8592; Exit</a>
+ \
+  <div class="back-button" id="backButton">
+    <a href="thank_you.html" >&#8592; Exit</a>
   </div>
 
   <div class="center">

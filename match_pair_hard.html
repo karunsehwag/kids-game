@@ -147,6 +147,64 @@ button {
 button:hover {
   background-color: #45a049;
 }
+@media screen and (max-width: 1200px) {
+  .game-container {
+    max-width: 1000px;
+    margin-top: 100px;
+
+  }
+  .card {
+      width: 100px;
+      height: 150px;
+    }
+   
+}
+@media screen and (max-width: 1200px) {
+  .game-container {
+    max-width: 800px;
+    margin-top: 100px;
+
+  }
+  .card {
+      width: 90px;
+      height: 150px;
+    }
+   
+}
+@media screen and (max-width: 940px) {
+  .game-container {
+    max-width: 900px;
+    margin-top: 100px;
+  
+  }
+  .card {
+      width: 80px;
+      height: 120px;
+    }
+   
+}
+@media screen and (max-width: 720px) {
+  .game-container {
+    max-width: 640px;
+    margin-top: 100px;
+  
+  }
+  .card-container 
+    {
+      grid-template-columns: repeat(3, 1fr);
+     
+    }
+  .card {
+      width: 100px;
+      height: 150px;
+    }
+   
+}
+
+   
+
+ 
+
   </style>
 </head>
 <body>
@@ -158,14 +216,7 @@ button:hover {
   <button id="toggle-music-button" class="sound-control-button">
     <i class="fas fa-volume-up"></i>
   </button>
-  <audio id="background-music" autoplay loop>
-    <source src="sounds_effect/6-Happy-Commercial-Piano(chosic.com).mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
 
-  <button id="toggle-music-button" class="sound-control-button">
-    <i class="fas fa-volume-up"></i>
-  </button>
 
   <div class="game-container">
     <h1>Animal Matching Game</h1>

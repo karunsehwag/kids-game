@@ -107,9 +107,33 @@ button {
 button:hover {
   background-color: #45a049;
 }
+@media screen and (max-width: 900px) {
+  .game-container {
+    max-width: 500px;
 
-
+  }
+  .card {
+      width: 100px;
+      height: 150px;
+    }
    
+}
+@media screen and (max-width: 640px) {
+  .game-container {
+    max-width: 400px;
+    margin-top: 100px;
+  
+  }
+  .card {
+      width: 100px;
+      height: 150px;
+    }
+   
+
+ 
+}
+
+
  
   </style>
 </head>
@@ -161,7 +185,7 @@ button:hover {
     let startTime = 0;
     let timerInterval;
     let elapsedTimeInSeconds = 0;
-    const maxAllowedTimeInSeconds = 90; // 2 minutes
+    const maxAllowedTimeInSeconds = 90; 
 
 
 

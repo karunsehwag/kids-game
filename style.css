@@ -22,17 +22,18 @@ padding-top: 6%;
 }
 
 .back-button {
-position: absolute;
-top: 10px;
-right: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .back-button a {
-text-decoration: none;
-padding: 5px 10px;
-background-color: #388f99;
-color: #fff;
-border-radius: 5px;
+  text-decoration: none;
+  padding: 8px 12px; /* Adjust the padding as needed */
+  background-color: #388f99;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px; /* Adjust the font size as needed */
 }
 
 .center {

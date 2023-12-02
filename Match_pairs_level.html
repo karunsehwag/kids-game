@@ -10,7 +10,20 @@
       background-attachment: fixed;
       background-size: cover;
     }
-  
+    @media screen and (max-width: 400px) {
+      .back-button a {
+        padding: 6px 10px;/* Adjust the padding for smaller screens */
+        font-size: 3vw; /* Adjust the font size for smaller screens */
+      }
+      .heading {
+font-size: 7vw; 
+
+}
+.custom-image {
+      width: 30vw;
+      height: 40vw;
+    }
+    }
 
   </style>
 </head>
@@ -18,9 +31,10 @@
   <div class="container-header">
     <h1 class="heading" id="dynamic-heading"></h1>
   </div>
-  <div class="back-button">
-    <a href="index.html">&#8592; Back</a>
+  <div class="back-button" id="backButton">
+    <a href="index.html" >&#8592; Back</a>
   </div>
+  
 <div class="center">
   <div class="image-container">
     <a href="#" onclick="showPopup('match_pairs_easy.html')">
