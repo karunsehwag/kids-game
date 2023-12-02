@@ -6,11 +6,34 @@
   <style>
    
 
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-     
+   body {
+      background-image: url('images/back2.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      
     }
+
+  
+   
+      @keyframes spreadAnimation {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.card-container {
+  
+    animation: spreadAnimation 2s ease-in-out;
+    display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    
+}
+ 
     .modal {
   display: none;
   position: fixed;
@@ -225,7 +248,11 @@ button:hover {
 
       const cardFront = document.createElement('div');
       cardFront.classList.add('card-front');
-      cardFront.textContent = `Card ${index + 1}`;
+      const cardImage = document.createElement('img');
+    cardImage.src = "images/playing_card_back_by_feivelyn_defaezm-414w-2x.jpg"; // Set the image source
+    cardImage.alt = `Card ${index + 1}`; // Set alt text for accessibility
+    cardFront.appendChild(cardImage);
+
 
       const cardBack = document.createElement('div');
       cardBack.classList.add('card-back');

@@ -4,15 +4,38 @@
   <link rel="stylesheet" type="text/css" href="style_match_pair.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <style>
-    .game-container {
-      max-width: 800px;
+    
+    body {
+      background-image: url('images/back2.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      
     }
 
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 10px;
+    .game-container {
+     
+     max-width: 800px; }
+
+   
+      @keyframes spreadAnimation {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
     }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.card-container {
+  
+    animation: spreadAnimation 2s ease-in-out;
+    grid-template-columns: repeat(3, 1fr);
+    
+}
+  
+   
 
     .card {
       width: 200px;
@@ -210,7 +233,11 @@ button:hover {
 
       const cardFront = document.createElement('div');
       cardFront.classList.add('card-front');
-      cardFront.textContent = `Card ${index + 1}`;
+      const cardImage = document.createElement('img');
+    cardImage.src = "images/playing_card_back_by_feivelyn_defaezm-414w-2x.jpg"; // Set the image source
+    cardImage.alt = `Card ${index + 1}`; // Set alt text for accessibility
+    cardFront.appendChild(cardImage);
+
 
       const cardBack = document.createElement('div');
       cardBack.classList.add('card-back');
