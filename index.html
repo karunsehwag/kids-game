@@ -6,12 +6,34 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
     body {
-      background-image: url('images/background.jpg');
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-      
-    }
+  margin: 0;
+  overflow: hidden; /* Remove scroll bars */
+}
+
+#video-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  object-fit: cover; 
+  width: auto;
+  height: auto;
+  z-index: -1000; /* Place the video behind other elements */
+}
+
+.content {
+  position: relative;
+  z-index: 1; /* Place the content above the video */
+  /* Additional styling for your content */
+}
+
+/* Additional body styles */
+body {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
     .container{
         position: relative;
     }
@@ -25,7 +47,7 @@
   .heading {
     font-size: 5vw; 
     color: #080809;
-    text-shadow: 2px 2px 4px #000; 
+    text-shadow: 2px 2px 4px #fbf8f8; 
     margin-bottom: 20px;
     position: absolute;
     top: 50%;
@@ -52,6 +74,7 @@
   .center {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap; 
     align-items: center;
     height: 100vh;
   }
@@ -59,7 +82,10 @@
   .image-container {
     text-align: center;
     margin: 3%;
+    
     position: relative;
+    flex: 0 0 20%;
+    opacity: .9;
   }
   
   img:hover {
@@ -111,7 +137,7 @@
   }
   
   .popup-content {
-    background-color: #fff;
+    background-color: #3498db;
     padding: 8%;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
@@ -120,7 +146,7 @@
 
   .popup-content button {
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: #03385b;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -166,12 +192,16 @@ font-size: 7vw;
   </style>
 </head>
 <body>
- 
+  <video id="video-background" autoplay muted loop>
+    <source src="images/nebula.1920x1080.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
     <div class="container">
   <div class="container-header">
     <h1 class="heading" id="dynamic-heading"></h1>
   </div>
- \
+ 
   <div class="back-button" id="backButton">
     <a href="thank_you.html" >&#8592; Exit</a>
   </div>
@@ -179,17 +209,17 @@ font-size: 7vw;
   <div class="center">
     <div class="image-container">
       <a href="Match_pairs_level.html">
-        <img src="images/Match_pairs.jpeg" alt="Pineapple" class="custom-image float-animation">
+        <img src="images/matching.jpg" alt="Pineapple" class="custom-image float-animation">
       </a>
     </div>
     <div class="image-container">
       <a href="spot_the_differnce_level.html">
-        <img src="images/spot_the_difference_background.jpg" alt="Second Image" class=" custom-image float-animation">
+        <img src="images/download.png" alt="Second Image" class=" custom-image float-animation">
       </a>
     </div>
     <div class="image-container">
       <a href="what_goes_together_level.html">
-        <img src="images/what_goes_together_background.png" alt="Third Image" class="custom-image float-animation">
+        <img src="images/Screen_Shot_2019-09-04_at_3.45.11_pm_grande.jpg" alt="Third Image" class="custom-image float-animation">
       </a>
     </div>
   </div>

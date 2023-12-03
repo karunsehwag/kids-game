@@ -7,11 +7,12 @@
   
    
   body {
-      background-image: url('images/back2.jpg');
+      background-image: url('images/7958427.jpg');
+      background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
-      
+  
     }
 
   
@@ -33,83 +34,8 @@
     
 }
  
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 1;
-    }
 
-    /* CSS for the modal content */
-    .modal-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #f1f1f1; /* Light gray background */
-      padding: 20px;
-      border-radius: 10px; /* Rounded corners */
-      text-align: center;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      max-width: 400px;
-    }
-    .modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1;
-}
-
-/* CSS for the modal content */
-.modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f1f1f1; /* Light gray background */
-  padding: 20px;
-  border-radius: 10px; /* Rounded corners */
-  text-align: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-}
-
-/* CSS for the close button */
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px; /* Larger close button */
-  cursor: pointer;
-  color: #888; /* Gray color */
-}
-
-.close-button:hover {
-  color: #000; /* Darken on hover */
-}
-
-/* CSS for the play again button */
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 24px; /* Larger padding */
-  border: none;
-  border-radius: 10px; /* Rounded corners */
-  margin-top: 20px; /* More space between button and content */
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
+  
 @media screen and (max-width: 1200px) {
   .game-container {
     max-width: 1000px;
@@ -168,11 +94,22 @@ button:hover {
   </style>
 </head>
 <body>
+  <div class="confetti-land">
+    <!-- Confetti will be added dynamically here -->
+  </div>
+  <a href="index.html">
+    <button id="home-button" class="home-button">
+      <i class="fas fa-home"></i>
+    </button>
+  </a>
   <audio id="background-music" autoplay loop>
     <source src="sounds_effect/6-Happy-Commercial-Piano(chosic.com).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
+  <div id="showCrossButton"></div>
+  <div id="showCheckmarkButton" ></div>
+ 
   <button id="toggle-music-button" class="sound-control-button">
     <i class="fas fa-volume-up"></i>
   </button>
@@ -215,14 +152,17 @@ button:hover {
 
    
     const imageUrls = [
-      'images/match_pair_background.jpg',
-      'images/what_goes_together_background.png',
-      'images/spot_the_difference_background.jpg',
-      'images/download (3).jpeg',
-      'images/hard.jpg',
-      'images/spot_the_difference_background.jpg',
-      'images/medium.jpeg',
-      'images/easy.jpg'
+      'images/1.jpg',
+      'images/2.png',
+      'images/3.jpg',
+      'images/4.jpg',
+      'images/5.jpg',
+      'images/6.jpg',
+      'images/7.jpg',
+      'images/8.jpg',
+      'images/9.jpg',
+      'images/horse.jpeg',
+      'images/hen.jpeg'
     ];
 
  
@@ -344,7 +284,54 @@ button:hover {
         }
       }
     }
+    function rAudio() {
+   
+      var audio = new Audio('sounds_effect/right.mp3');
 
+      // Play the audiong-answer-20582.mp3
+      audio.play();
+    }
+    function wAudio() {
+     
+      var audio = new Audio('sounds_effect/buzzer-or-wrong-answer-20582.mp3');
+
+      // Play the audio
+      audio.play();
+    }
+
+    function showCheckmarkAndDisable() {
+      rAudio();
+      const showCheckmarkButton = document.getElementById('showCheckmarkButton');
+      const checkmarkSign = document.createElement('div');
+      checkmarkSign.className = 'checkmark-sign';
+      checkmarkSign.innerHTML = '\u2713'; // Unicode for checkmark sign
+      document.body.appendChild(checkmarkSign);
+
+      showCheckmarkButton.disabled = true; // Disable the button
+      checkmarkSign.style.display = 'block';
+
+      setTimeout(() => {
+        checkmarkSign.style.display = 'none'; // Hide the checkmark sign after 1 second
+        showCheckmarkButton.disabled = false; // Enable the button
+      }, 1000);
+    }
+    function showCrossAndDisable() {
+      wAudio();
+      const showCrossButton = document.getElementById('showCrossButton');
+      const crossSign = document.createElement('div');
+      crossSign.className = 'cross-sign';
+      crossSign.innerHTML = '\u2717'; // Unicode for cross sign
+      document.body.appendChild(crossSign);
+
+      showCrossButton.disabled = true; // Disable the button
+      crossSign.style.display = 'block';
+
+      setTimeout(() => {
+        crossSign.style.display = 'none'; // Hide the cross sign after 1 second
+        showCrossButton.disabled = false; // Enable the button
+      }, 1000);
+    }
+   
     function checkForMatch() {
       const [card1, card2] = flippedCards;
       const image1 = card1.querySelector('.card-back').style.backgroundImage;
@@ -358,6 +345,7 @@ button:hover {
         matchedPairs++;
         score++;
         document.getElementById('score').textContent = `Score: ${score}/5`;
+        showCheckmarkAndDisable() ;
         if (matchedPairs === 5) {
         
           stopTimer();
@@ -370,17 +358,31 @@ button:hover {
         card1.classList.remove('flipped');
         card2.classList.remove('flipped');
         flippedCards = [];
+        showCrossAndDisable();
       }
     }
     const animalFacts = [
-      "The cheetah is the fastest land animal and can reach speeds up to 75 mph.",
-      "Polar bears are excellent swimmers and have been known to swim hundreds of miles at a stretch.",
-      "A group of flamingos is called a 'flamboyance.'",
-      "Honeybees can recognize human faces.",
-      "A kangaroo can jump up to three times its own body length in one leap.",
-    ];
+  "Elephants, the only animals that can't jump, have the largest brains of any land animal.",
+  "Octopuses, with three hearts and blue blood, can regrow lost arms.",
+  "Chameleons change color to communicate, not just to blend in, and their eyes can move independently.",
+  "Giraffes, with seven neck vertebrae like humans, have blue-black tongues up to 45 cm long.",
+  "Dolphins use signature whistles to identify each other and are known for playful behavior and high intelligence.",
+  "Sloths, the slowest mammals, can take up to a month to digest a meal and spend most of their lives hanging upside down.",
+  "Crows, highly intelligent, can solve complex problems and remember human faces for years.",
+  "Blue whales, the largest animals on Earth, and humpback whales, create intricate songs that can last for hours.",
+  "Wood frogs can survive being completely frozen and thaw out later, while golden poison dart frogs are among the most poisonous animals.",
+  "Platypuses, laying eggs and having a duck-like bill and webbed feet, are one of the few mammals with these characteristics.",
+  "Cheetahs, the fastest land animals, can accelerate from 0 to 60 mph in just a few seconds.",
+  "Penguins, despite being birds, are flightless and are excellent swimmers instead.",
+  "Kangaroos use their powerful tails for balance and can jump great distances.",
+  "Honeybees communicate through complex dances to convey information about the location of food sources.",
+  "Pandas have a specialized diet of bamboo and have a 'thumb' to help them grip the bamboo stems.",
+  "Monarch butterflies undertake a remarkable migration, covering thousands of miles to reach their wintering grounds.",
+];
 
     function showpopup(finalScore, showTime, animalFact) {
+      startConfetti();
+      playAudio();
       // Create a modal container
       const modalContainer = document.createElement('div');
       modalContainer.className = 'modal';
@@ -408,7 +410,7 @@ button:hover {
       const timeText = document.createElement('p');
       timeText.innerHTML = 'Time taken: ' + formatTime(showTime);
 
-      const factText = document.createElement('p');
+      const factText = document.createElement('h3');
       factText.textContent = 'Random Animal Fact:';
       const fact = document.createElement('p');
       fact.textContent = animalFact;
@@ -416,6 +418,10 @@ button:hover {
       const playAgainButton = document.createElement('button');
       playAgainButton.textContent = 'Play Again';
       playAgainButton.onclick = playAgain;
+
+  const nextLevelButton = document.createElement('button');
+  nextLevelButton.textContent = 'Next Level';
+  nextLevelButton.onclick = goToNextLevel;
 
       // Append the elements to the modal content
       modalContent.appendChild(closeButton);
@@ -426,6 +432,7 @@ button:hover {
       modalContent.appendChild(factText);
       modalContent.appendChild(fact);
       modalContent.appendChild(playAgainButton);
+      modalContent.appendChild(nextLevelButton);
 
       // Append the modal content to the modal container
       modalContainer.appendChild(modalContent);
@@ -435,6 +442,20 @@ button:hover {
 
       modalContainer.style.display = 'block';
     }
+
+    function playAudio() {
+     
+      var audio = new Audio('sounds_effect/crowd.mp3');
+
+      // Play the audio
+      audio.play();
+    }
+
+    function goToNextLevel() {
+  // Add logic to go to the next level
+  // For demonstration purposes, let's redirect to another page
+  window.location.href = 'match_pair_hard.html';
+}
 
     // Define the closePopup function to close the modal
     function closePopup() {
@@ -479,6 +500,52 @@ function playAgain()
  
     assignImagesToCards(); 
     startTimer();
+    var confettiPlayers = [];
+var animationStarted = false;
+
+function makeItConfetti() {
+  var confettiLand = document.querySelector('.confetti-land');
+
+  if (!confettiLand) {
+    return false;
+  }
+
+  for (var i = 0; i < 60; ++i) {
+    var confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.innerHTML = '<div class="rotate"><div class="askew"></div></div>';
+    confettiLand.appendChild(confetti);
+
+    var scale = Math.random() * 0.7 + 0.3;
+    var player = confetti.animate([
+      { transform: `translate3d(${(i / 60 * 100)}vw,-5vh,0) scale(${scale}) rotate(0turn)`, opacity: scale },
+      { transform: `translate3d(${(i / 60 * 100 + 10)}vw,105vh,0) scale(${scale}) rotate(${ Math.random() > 0.5 ? '' : '-'}2turn)`, opacity: 1 }
+    ], {
+      duration: Math.random() * 3000 + 4000,
+      iterations: Infinity,
+      delay: -(Math.random() * 7000)
+    });
+
+    confettiPlayers.push(player);
+  }
+}
+
+function startConfetti() {
+  if (!animationStarted) {
+    makeItConfetti();
+    animationStarted = true;
+    document.querySelector('button').style.display = 'none'; // Hide the button after animation starts
+  }
+}
+
+// Initial setup
+onChange({currentTarget: {value: 'bookmarks'}});
+document.getElementById('type').addEventListener('change', onChange);
+
+function onChange(e) {
+  document.body.setAttribute('data-type', e.currentTarget.value);
+  confettiPlayers.forEach(player => player.playbackRate = e.currentTarget.value === 'bookmarks' ? 2 : 1);
+}
   </script>
 </body>
 </html>

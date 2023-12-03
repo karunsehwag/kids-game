@@ -6,12 +6,13 @@
   <style>
    
    
-    body {
-      background-image: url('images/back2.jpg');
+   body {
+      background-image: url('images/7958427.jpg');
+      background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
-      
+  
     }
 
     .game-container {
@@ -151,10 +152,22 @@ button:hover {
   </style>
 </head>
 <body>
+  <div class="confetti-land">
+    <!-- Confetti will be added dynamically here -->
+  </div>
+  <a href="index.html">
+    <button id="home-button" class="home-button">
+      <i class="fas fa-home"></i>
+    </button>
+  </a>
   <audio id="background-music" autoplay loop>
     <source src="sounds_effect/6-Happy-Commercial-Piano(chosic.com).mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+
+  <div id="showCrossButton"></div>
+  <div id="showCheckmarkButton" ></div>
+ 
 
   <button id="toggle-music-button" class="sound-control-button">
     <i class="fas fa-volume-up"></i>
@@ -338,7 +351,53 @@ button:hover {
         }
       }
     }
+    function rAudio() {
+   
+   var audio = new Audio('sounds_effect/right.mp3');
 
+   // Play the audiong-answer-20582.mp3
+   audio.play();
+ }
+ function wAudio() {
+
+   var audio = new Audio('sounds_effect/buzzer-or-wrong-answer-20582.mp3');
+
+   // Play the audio
+   audio.play();
+ }
+    function showCheckmarkAndDisable() {
+      rAudio();
+      const showCheckmarkButton = document.getElementById('showCheckmarkButton');
+      const checkmarkSign = document.createElement('div');
+      checkmarkSign.className = 'checkmark-sign';
+      checkmarkSign.innerHTML = '\u2713'; // Unicode for checkmark sign
+      document.body.appendChild(checkmarkSign);
+
+      showCheckmarkButton.disabled = true; // Disable the button
+      checkmarkSign.style.display = 'block';
+
+      setTimeout(() => {
+        checkmarkSign.style.display = 'none'; // Hide the checkmark sign after 1 second
+        showCheckmarkButton.disabled = false; // Enable the button
+      }, 1000);
+    }
+    function showCrossAndDisable() {
+      wAudio();
+      const showCrossButton = document.getElementById('showCrossButton');
+      const crossSign = document.createElement('div');
+      crossSign.className = 'cross-sign';
+      crossSign.innerHTML = '\u2717'; // Unicode for cross sign
+      document.body.appendChild(crossSign);
+
+      showCrossButton.disabled = true; // Disable the button
+      crossSign.style.display = 'block';
+
+      setTimeout(() => {
+        crossSign.style.display = 'none'; // Hide the cross sign after 1 second
+        showCrossButton.disabled = false; // Enable the button
+      }, 1000);
+    }
+   
     function checkForMatch() {
       const [card1, card2] = flippedCards;
       const index1 = card1.index;
@@ -354,6 +413,7 @@ button:hover {
         matchedPairs += 2;
         score++;
         document.getElementById('score').textContent = `Score: ${score}/7`;
+        showCheckmarkAndDisable() ;
 
         if (matchedPairs === 14) {
         
@@ -364,10 +424,13 @@ button:hover {
         card1.card.classList.remove('flipped');
         card2.card.classList.remove('flipped');
         flippedCards = [];
+        showCrossAndDisable();
       }
     }
        // Define the showpopup function
 function showpopup(finalScore, showTime) {
+  startConfetti();
+  playAudio();
   // Create a modal container
   const modalContainer = document.createElement('div');
   modalContainer.className = 'modal';
@@ -384,7 +447,7 @@ function showpopup(finalScore, showTime) {
 
   // Create the content for the modal
   const modalTitle = document.createElement('h2');
-  modalTitle.textContent = 'Game Over';
+  modalTitle.textContent = 'You Won';
 
   const modalText = document.createElement('p');
   modalText.textContent = 'Congratulations! You won the game.';
@@ -416,6 +479,13 @@ function showpopup(finalScore, showTime) {
 
   modalContainer.style.display = 'block';
 }
+function playAudio() {
+     
+     var audio = new Audio('sounds_effect/crowd.mp3');
+
+     // Play the audio
+     audio.play();
+   }
 
 // Define the closePopup function to close the modal
 function closePopup() {
@@ -435,5 +505,51 @@ function playAgain()
 
     assignImagesToCards();
     startTimer();
+    var confettiPlayers = [];
+var animationStarted = false;
+
+function makeItConfetti() {
+  var confettiLand = document.querySelector('.confetti-land');
+
+  if (!confettiLand) {
+    return false;
+  }
+
+  for (var i = 0; i < 60; ++i) {
+    var confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.innerHTML = '<div class="rotate"><div class="askew"></div></div>';
+    confettiLand.appendChild(confetti);
+
+    var scale = Math.random() * 0.7 + 0.3;
+    var player = confetti.animate([
+      { transform: `translate3d(${(i / 60 * 100)}vw,-5vh,0) scale(${scale}) rotate(0turn)`, opacity: scale },
+      { transform: `translate3d(${(i / 60 * 100 + 10)}vw,105vh,0) scale(${scale}) rotate(${ Math.random() > 0.5 ? '' : '-'}2turn)`, opacity: 1 }
+    ], {
+      duration: Math.random() * 3000 + 4000,
+      iterations: Infinity,
+      delay: -(Math.random() * 7000)
+    });
+
+    confettiPlayers.push(player);
+  }
+}
+
+function startConfetti() {
+  if (!animationStarted) {
+    makeItConfetti();
+    animationStarted = true;
+    document.querySelector('button').style.display = 'none'; // Hide the button after animation starts
+  }
+}
+
+// Initial setup
+onChange({currentTarget: {value: 'bookmarks'}});
+document.getElementById('type').addEventListener('change', onChange);
+
+function onChange(e) {
+  document.body.setAttribute('data-type', e.currentTarget.value);
+  confettiPlayers.forEach(player => player.playbackRate = e.currentTarget.value === 'bookmarks' ? 2 : 1);
+}
   </script>
 </body>

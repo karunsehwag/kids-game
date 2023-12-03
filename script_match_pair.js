@@ -35,4 +35,4 @@ function flipCard(card) {
   }
 }
 
-// Add code for shuffling and initializing the cards here.
+

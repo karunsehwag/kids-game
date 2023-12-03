@@ -12,7 +12,7 @@ text-align: center;
 .heading {
 font-size: 5vw; 
 color: #080809;
-text-shadow: 2px 2px 4px #000; 
+text-shadow: 2px 2px 4px #fbf8f8; 
 margin-bottom: 20px;
 position: absolute;
 top: 50%;
@@ -47,6 +47,7 @@ height: 100vh;
 text-align: center;
 margin: 3%;
 position: relative;
+border-radius: 50%;
 }
 
 img:hover {
@@ -98,16 +99,18 @@ align-items: center;
 }
 
 .popup-content {
-background-color: #fff;
+background-color: #34d5db;
 padding: 8%;
 border-radius: 10px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+font-size: 30px;
 text-align: center;
+opacity: 1;
 }
 
 .popup-content button {
 padding: 10px 20px;
-background-color: #3498db;
+background-color: #0a158d;
 color: #fff;
 border: none;
 border-radius: 10px;
@@ -130,10 +133,13 @@ background-color: #c0392b;
 .custom-image {
   width: 20vw;
   height: 20vw;
+  border-radius: 50%;
 }
+
 .custom-image:hover {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
+  border-radius: 50%;
 }
 
   
